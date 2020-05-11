@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="userPagePane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Scene1.UserPage">
+   <padding>
+      <Insets bottom="10.0" left="30.0" right="10.0" top="10.0" />
+   </padding>
+   <children>
+      <TableView fx:id="table" layoutX="40.0" layoutY="41.0" prefHeight="200.0" prefWidth="519.0">
+        <columns>
+          <TableColumn fx:id="name" prefWidth="75.0" text="Name" />
+          <TableColumn fx:id="author" prefWidth="75.0" text="Author" />
+            <TableColumn fx:id="pub_date" prefWidth="75.0" text="Published" />
+            <TableColumn fx:id="quantity" prefWidth="75.0" text="Quantity" />
+        </columns>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </TableView>
+      <Button fx:id="searchBookButton" layoutX="507.0" layoutY="283.0" mnemonicParsing="false" text="Search" />
+      <Label fx:id="searchLevel1" layoutX="40.0" layoutY="287.0" text="Search here:" />
+      <TextField fx:id="searchText1" layoutX="126.0" layoutY="283.0" />
+   </children>
+</AnchorPane>
