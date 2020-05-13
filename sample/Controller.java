@@ -13,9 +13,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.*;
+import java.util.ResourceBundle;
 
-public class Controller {
+public class Controller implements Initializable {
 
     public Label welcomeLabel;
     public Label UserEmailLabel;
@@ -71,5 +73,10 @@ public class Controller {
         //primaryStage.setTitle();
         stage.setScene(new Scene(root));
         stage.show();
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
     }
 }
