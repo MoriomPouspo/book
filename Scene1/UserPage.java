@@ -13,7 +13,11 @@ import javafx.scene.layout.Pane;
 
 import java.net.URL;
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.*;
+import java.util.Date;
 
 public class UserPage implements Initializable {
     public AnchorPane userPagePane;
@@ -30,9 +34,15 @@ public class UserPage implements Initializable {
     public TableColumn bookID;
     public ListView cartListView;
 
+    public TableView<InfoTable> infoTable;
+    public TableColumn infoBookID;
+    public TableColumn<InfoTable, String> infoBookName;
+    public TableColumn<InfoTable, String> infoBookDate;
+
     String email;
     ObservableList<ModelTable> objlist = FXCollections.observableArrayList();
     ObservableList<Book> cartList = FXCollections.observableArrayList();
+    ObservableList<InfoTable> infoTablesList = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)  {
@@ -41,10 +51,17 @@ public class UserPage implements Initializable {
         author.setCellValueFactory(new PropertyValueFactory<>("author"));
         pub_date.setCellValueFactory(new PropertyValueFactory<>("pub_date"));
         bookID.setCellValueFactory(new PropertyValueFactory<>("bookID"));
+
+        infoBookID.setCellValueFactory(new PropertyValueFactory<>("bookId"));
+        infoBookName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        infoBookDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+
+
         table.setItems(objlist);
 
         informationToggle.setSelected(true);
     }
+
 
     public void setEmail(String email){
         this.email = email;
@@ -74,12 +91,45 @@ public class UserPage implements Initializable {
         }
     }
 
+    public void populateInfoTable(){
+        try {
+            Connection conn = DriverManager.getConnection("jdbc:sqlite:src/database/database.db");
+            if(conn != null){
+                String query = String.format("SELECT book_id, name, issue_date\n" +
+                        " FROM booking\n" +
+                        " INNER JOIN Book_Information\n" +
+                        " on booking.book_id == Book_Information.ID\n" +
+                        " WHERE booking.user_email='%s';", this.email);
+                Statement stmt = conn.createStatement();
+                ResultSet res = stmt.executeQuery(query);
+
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                infoTablesList.clear();
+                while(res.next()){
+                    Date dt = simpleDateFormat.parse(res.getString("issue_date"));
+                    infoTablesList.add(new InfoTable(
+                            res.getInt("book_id"),
+                            res.getString("name"),
+                            simpleDateFormat.format(dt)
+                    ));
+                }
+            }
+            conn.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
     public void toggleButtonAction(ActionEvent actionEvent) {
         if (actionEvent.getSource() == bookListToggle){
             bookListPane.toFront();
             informationToggle.setSelected(false);
         }
         if (actionEvent.getSource() == informationToggle) {
+            populateInfoTable();
+            infoTable.setItems(infoTablesList);
+
             informationPane.toFront();
             bookListToggle.setSelected(false);
         }
@@ -160,4 +210,26 @@ public class UserPage implements Initializable {
     }
 
 
+    public void returnBookAction(ActionEvent actionEvent) {
+        if(infoTable.getSelectionModel().getSelectedItem() != null){
+            try{
+                Connection conn = DriverManager.getConnection("jdbc:sqlite:src/database/database.db");
+                if(conn != null){
+                    String query = String.format("DELETE FROM booking WHERE user_email='%s' AND book_id=%d", this.email, infoTable.getSelectionModel().getSelectedItem().bookId);
+                    Statement statement = conn.createStatement();
+                    statement.execute(query);
+                    infoTablesList.remove(infoTable.getSelectionModel().getSelectedItem());
+                    infoTable.setItems(infoTablesList);
+                }
+
+            }catch (SQLException e){
+                e.printStackTrace();
+
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Error!");
+                alert.setContentText("Sql Exception occured");
+                alert.showAndWait();
+            }
+        }
+    }
 }
