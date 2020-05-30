@@ -2,13 +2,21 @@ package Scene1;
 
 public class ModelTable {
     String name, author, pub_date;
-    int quantity;
+    int bookID;
 
-    public ModelTable(String name, String author, String pub_date, int quantity) {
+    public int getBookID() {
+        return bookID;
+    }
+
+    public void setBookID(int bookID) {
+        this.bookID = bookID;
+    }
+
+    public ModelTable(String name, String author, String pub_date, int bookID) {
         this.name = name;
         this.author = author;
         this.pub_date = pub_date;
-        this.quantity = quantity;
+        this.bookID = bookID;
     }
 
     public String getName() {
@@ -33,13 +41,5 @@ public class ModelTable {
 
     public void setPub_date(String pub_date) {
         this.pub_date = pub_date;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
     }
 }
