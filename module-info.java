@@ -4,4 +4,5 @@ module library {
     requires java.sql;
     opens sample;
     opens Scene1;
+    opens Scene1.models;
 }

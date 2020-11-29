@@ -13,10 +13,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/scene1/UserPage.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("sample.fxml"));
         Parent root = loader.load();
-        UserPage userPage = loader.getController();
-        userPage.setEmail("soomit@gmail.com");
 
         //primaryStage.setTitle();
         primaryStage.setScene(new Scene(root));
