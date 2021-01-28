@@ -7,11 +7,13 @@ public class InfoTable {
     int bookId;
     String name;
     String date;
+    int fine;
 
-    public InfoTable(int bookId, String name, String date) {
+    public InfoTable(int bookId, String name, String date, Integer fine) {
         this.bookId = bookId;
         this.name = name;
         this.date = date;
+        this.fine = fine;
     }
 
     public int getBookId() {
@@ -36,5 +38,11 @@ public class InfoTable {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public int getFine() {return fine;}
+
+    public void setFine(int fine) {
+        this.fine = fine;
     }
 }

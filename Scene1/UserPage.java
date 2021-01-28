@@ -15,7 +15,10 @@ import java.net.URL;
 import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.Date;
 
@@ -38,6 +41,7 @@ public class UserPage implements Initializable {
     public TableColumn infoBookID;
     public TableColumn<InfoTable, String> infoBookName;
     public TableColumn<InfoTable, String> infoBookDate;
+    public TableColumn<InfoTable, Integer> infoFine;
 
     String email;
     ObservableList<ModelTable> objlist = FXCollections.observableArrayList();
@@ -55,7 +59,7 @@ public class UserPage implements Initializable {
         infoBookID.setCellValueFactory(new PropertyValueFactory<>("bookId"));
         infoBookName.setCellValueFactory(new PropertyValueFactory<>("name"));
         infoBookDate.setCellValueFactory(new PropertyValueFactory<>("date"));
-
+        infoFine.setCellValueFactory(new PropertyValueFactory<>("fine"));
 
         table.setItems(objlist);
 
@@ -106,11 +110,27 @@ public class UserPage implements Initializable {
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 infoTablesList.clear();
                 while(res.next()){
-                    Date dt = simpleDateFormat.parse(res.getString("issue_date"));
+                    String issueDate = res.getString("issue_date");
+                    Date dt = simpleDateFormat.parse(issueDate);
+
+                    LocalDateTime borrowDate = LocalDateTime.parse(issueDate, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                    LocalDateTime currentDate = LocalDateTime.now();
+
+                    long duration = Duration.between(borrowDate, currentDate).toDays();
+
+                    long week = duration/7;
+
+                    int fine = 0;
+
+                    if (week > 1) {
+                        fine = (int) week * 10;
+                    }
+
                     infoTablesList.add(new InfoTable(
                             res.getInt("book_id"),
                             res.getString("name"),
-                            simpleDateFormat.format(dt)
+                            simpleDateFormat.format(dt),
+                            fine
                     ));
                 }
             }
