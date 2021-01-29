@@ -3,14 +3,19 @@ package Scene1;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.text.ParseException;
@@ -156,8 +161,13 @@ public class UserPage implements Initializable {
         }
     }
 
-    public void logOutButtonAction(ActionEvent actionEvent){
-
+    public void logOutButtonAction(ActionEvent actionEvent) throws IOException {
+        Stage stage = (Stage) userPagePane.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/sample/sample.fxml"));
+        Parent root =  loader.load();
+        //primaryStage.setTitle();
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
     public void bookListRowSelected(ActionEvent actionEvent) {
