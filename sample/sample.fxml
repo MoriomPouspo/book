@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -16,11 +17,11 @@
       </Label>
       <Label fx:id="UserEmailLabel" layoutX="99.0" layoutY="138.0" text="User email:" />
       <Label fx:id="PasswordLabel" layoutX="99.0" layoutY="174.0" text="User Password:" />
-      <TextField fx:id="PasswordText" layoutX="188.0" layoutY="170.0" promptText="Enter your password" />
       <TextField fx:id="UserEmailText" layoutX="188.0" layoutY="134.0" promptText=" Enter your emailID" />
       <Button fx:id="SignInButton" layoutX="455.0" layoutY="157.0" mnemonicParsing="false" onAction="#SignInButtonAction" text="Sign in" />
       <Button fx:id="SignUpButton" layoutX="269.0" layoutY="282.0" mnemonicParsing="false" onAction="#SignUpButtonAction" prefHeight="25.0" prefWidth="253.0" text="Don't have any account?Sign Up here.." />
       <Label fx:id="text" layoutX="99.0" layoutY="246.0" prefHeight="17.0" prefWidth="241.0" />
       <RadioButton fx:id="asAdminButton" layoutX="191.0" layoutY="219.0" mnemonicParsing="false" text="Login as Admin" />
+      <PasswordField fx:id="PasswordText" layoutX="188.0" layoutY="169.0" promptText="Enter your password" />
    </children>
 </AnchorPane>

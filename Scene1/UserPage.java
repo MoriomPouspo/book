@@ -42,6 +42,7 @@ public class UserPage implements Initializable {
     public TableColumn<InfoTable, String> infoBookName;
     public TableColumn<InfoTable, String> infoBookDate;
     public TableColumn<InfoTable, Integer> infoFine;
+    public Button logOutButton;
 
     String email;
     ObservableList<ModelTable> objlist = FXCollections.observableArrayList();
@@ -153,6 +154,10 @@ public class UserPage implements Initializable {
             informationPane.toFront();
             bookListToggle.setSelected(false);
         }
+    }
+
+    public void logOutButtonAction(ActionEvent actionEvent){
+
     }
 
     public void bookListRowSelected(ActionEvent actionEvent) {
