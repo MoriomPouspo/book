@@ -5,13 +5,19 @@ import Scene1.models.AdminUser;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.w3c.dom.Text;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
@@ -48,6 +54,8 @@ public class AdminPage implements Initializable {
     public Button userPaneSaveButton;
     public Button userPaneCancelButton;
     public RadioButton user_isSuperUser;
+    public Button logOutButton;
+    public AnchorPane adminPagePane;
 
     ObservableList<AdminBook> adminBookObservableList = FXCollections.observableArrayList();
     ObservableList<AdminUser> adminUserObservableList = FXCollections.observableArrayList();
@@ -133,6 +141,15 @@ public class AdminPage implements Initializable {
 
         populateUserlist();
         table_user.setItems(adminUserObservableList);
+    }
+
+    public void logOutButtonAction(ActionEvent actionEvent) throws IOException {
+        Stage stage = (Stage) adminPagePane.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/sample/sample.fxml"));
+        Parent root =  loader.load();
+        //primaryStage.setTitle();
+        stage.setScene(new Scene(root));
+        stage.show();
     }
     public void populateBooklist(){
         try{
