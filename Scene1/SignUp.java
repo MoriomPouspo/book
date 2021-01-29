@@ -40,6 +40,7 @@ public class SignUp {
             errorText.setText("Email should be of length 5-20");
             return;
         }
+
         if(password.length() < 5 || password.length() > 20){
             errorText.setText("Password should be of length 5-20");
             return;
