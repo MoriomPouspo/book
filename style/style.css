@@ -30,3 +30,8 @@
 .list-view{
 
 }
+
+.bodybg{
+     -fx-background-image: url('../style/img/download.jpg');
+     -fx-background-size: 100% 100%;
+}
