@@ -10,7 +10,6 @@ import javafx.stage.Stage;
 import java.sql.*;
 
 public class Main extends Application {
-
     @Override
     public void start(Stage primaryStage) throws Exception{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("sample.fxml"));
