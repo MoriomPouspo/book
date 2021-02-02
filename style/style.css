@@ -35,3 +35,8 @@
      -fx-background-image: url('../style/img/download.jpg');
      -fx-background-size: 100% 100%;
 }
+
+.signUpbg{
+     -fx-background-image: url('../style/img/signUp.jpg');
+     -fx-background-size: 100% 100%;
+}
